@@ -1,11 +1,12 @@
 
-function bigFoot (frames)
+function bigFoot
 
   % game parameters
   global cmd;
   cmd = "null"; % set the initial keyboard command
   fps = 2;      % set the frame rate in frames per second
   dt  = 1/fps;  % set the frame delay seconds
+  frame = 0;   % frame counter
 
   % Bigfoot parameters
   bigFootSize = 100;
@@ -16,6 +17,7 @@ function bigFoot (frames)
   bigFootTheta = -pi/2;
   bigFootMaxJump = 50;
   bigFootMove = 50;
+  bigFootThetaMove = pi;
 
   % Bat parameters
   batSize = 50;
@@ -31,7 +33,10 @@ function bigFoot (frames)
   [maxX,maxY] = drawBackground("spookyForest.png");
 
  % start game loop
-  for frame = 1:frames
+  while( cmd != 'k')
+
+  %update the frame counter
+    frame = frame + 1;
 
   % process keyboard command.
     if( cmd != "null")
@@ -41,6 +46,8 @@ function bigFoot (frames)
          bigFootX = bigFootX + bigFootMove;
        elseif(cmd =='a')
          bigFootX = bigFootX - bigFootMove;
+       elseif (cmd == 's')
+         bigFootTheta = bigFootTheta - bigFootThetaMove;
        endif
 
        %set the command back to null
@@ -73,7 +80,9 @@ function bigFoot (frames)
     delete(batHandle);
     delete(bigFootHandle);
 
+  endwhile
 
-  endfor
+  % clean up
+  close all;
 
 endfunction
